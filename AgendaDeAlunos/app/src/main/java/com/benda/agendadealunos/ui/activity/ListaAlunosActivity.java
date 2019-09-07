@@ -14,32 +14,40 @@ import com.benda.agendadealunos.dao.AlunoDAO;
 import com.benda.agendadealunos.model.Aluno;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class ListaAlunosActivity extends AppCompatActivity {
+
+    private AlunoDAO dao = new AlunoDAO();
+    private static final String TITULO_APPBAR = "Lista de Alunos";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
-        setTitle("Lista de Alunos");
+        setTitle(TITULO_APPBAR);
+        ConfigurarFabNovoAluno();
+    }
 
+    private void ConfigurarFabNovoAluno() {
         FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_lista_alunos_fab_novo_aluno);
         botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class));
+                abrirFormularioAlunoActivity();
             }
         });
+    }
+
+    private void abrirFormularioAlunoActivity() {
+        startActivity(new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        final AlunoDAO dao = new AlunoDAO();
+        configurarListaDeAlunos();
+    }
 
+    private void configurarListaDeAlunos() {
         ListView listaAlunos = findViewById(R.id.activity_lista_alunos_listview);
         listaAlunos.setAdapter(new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, dao.getTodosAlunos()));
     }
