@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.benda.agendadealunos.R;
+import com.benda.agendadealunos.dao.AlunoDAO;
+import com.benda.agendadealunos.model.Aluno;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,8 +22,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
         setTitle("Lista de Alunos");
-        List<String> alunos = new ArrayList<>(Arrays.asList("Huguinho","Zezinho","Luizinho", "Pedrinho", "Claudinho", "Buchecha", "Romário"));
+
+        final AlunoDAO dao = new AlunoDAO();
+
         ListView listaAlunos = findViewById(R.id.activity_lista_alunos_listview);
-        listaAlunos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos));
+        listaAlunos.setAdapter(new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, dao.getTodosAlunos()));
     }
 }
