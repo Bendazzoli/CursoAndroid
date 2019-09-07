@@ -38,7 +38,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
                 Aluno novoAluno = new Aluno(nome, telefone, email);
                 dao.salvar(novoAluno);
 
-                startActivity(new Intent(FormularioAlunoActivity.this, ListaAlunosActivity.class));
+                finish();
             }
         });
     }
