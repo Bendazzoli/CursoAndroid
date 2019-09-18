@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/activity_formulario_cerveja_nome"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_margin="8dp"
+        android:hint="Nome cerveja"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/activity_formulario_cerveja_litragem"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_margin="8dp"
+        android:hint="Quantidade em ml"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/activity_formulario_cerveja_preco"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_margin="8dp"
+        android:hint="R$ preço"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/activity_formulario_cerveja_botao_salvar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_margin="8dp"
+        android:text="Salvar" />
+
+</LinearLayout>
