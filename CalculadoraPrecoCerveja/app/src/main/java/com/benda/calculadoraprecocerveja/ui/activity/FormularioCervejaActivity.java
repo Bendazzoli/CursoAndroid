@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import com.benda.calculadoraprecocerveja.R;
 import com.benda.calculadoraprecocerveja.dao.CervejaDAO;
+import com.benda.calculadoraprecocerveja.internal.MonetaryHelper;
+import com.benda.calculadoraprecocerveja.internal.MonetaryTextWatcher;
 import com.benda.calculadoraprecocerveja.model.Cerveja;
 
 import java.math.BigDecimal;
@@ -35,7 +37,9 @@ public class FormularioCervejaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String nome = campoNome.getText().toString();
                 Integer litragem = Integer.parseInt(campoLitragem.getText().toString());
-                Float preco =  Float.parseFloat(campoPreco.getText().toString());
+
+                String formattedValue = MonetaryHelper.cleanFormat(campoPreco.getText().toString());
+                Float preco =  Float.parseFloat(formattedValue);
 
                 Cerveja novaCerveja = new Cerveja(nome, litragem, preco);
                 dao.salvar(novaCerveja);
@@ -43,5 +47,7 @@ public class FormularioCervejaActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        campoPreco.addTextChangedListener(new MonetaryTextWatcher(campoPreco));
     }
 }
