@@ -11,6 +11,7 @@
         android:layout_height="64dp"
         android:layout_margin="8dp"
         android:hint="Nome cerveja"
+        android:maxLength="30"
         android:inputType="textCapWords" />
 
     <EditText
@@ -19,6 +20,7 @@
         android:layout_height="64dp"
         android:layout_margin="8dp"
         android:hint="Quantidade em ml"
+        android:maxLength="5"
         android:inputType="number" />
 
     <EditText
@@ -27,6 +29,7 @@
         android:layout_height="64dp"
         android:layout_margin="8dp"
         android:hint="R$ preço"
+        android:maxLength="11"
         android:inputType="numberDecimal" />
 
     <Button
