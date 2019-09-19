@@ -22,9 +22,11 @@ public class Cerveja {
         return this.nome + " " + this.litragem + "ml - (R$" + calculaPrecoLitro() + " / litro)" ;
     }
 
-    private Float calculaPrecoLitro() {
+    private String calculaPrecoLitro() {
         DecimalFormat df = new DecimalFormat("###.##");
         df.setRoundingMode(RoundingMode.UP);
-        return Float.valueOf(df.format((this.preco * 1000) / this.litragem));
+        String precoCalculado = df.format((this.preco * 1000) / this.litragem);
+        precoCalculado.replace(",", ".");
+        return precoCalculado;
     }
 }
