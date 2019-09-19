@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-public class Cerveja {
+public class Cerveja implements Comparable<Cerveja> {
     private final String nome;
     private final Integer litragem;
     private final Float preco;
@@ -25,8 +25,11 @@ public class Cerveja {
     private String calculaPrecoLitro() {
         DecimalFormat df = new DecimalFormat("###.##");
         df.setRoundingMode(RoundingMode.UP);
-        String precoCalculado = df.format((this.preco * 1000) / this.litragem);
-        precoCalculado.replace(",", ".");
-        return precoCalculado;
+        return df.format((this.preco * 1000) / this.litragem);
+    }
+
+    @Override
+    public int compareTo(Cerveja outra) {
+        return this.nome.compareTo(outra.nome);
     }
 }
