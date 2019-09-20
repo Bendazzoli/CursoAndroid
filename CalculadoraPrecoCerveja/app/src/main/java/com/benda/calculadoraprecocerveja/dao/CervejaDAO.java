@@ -2,7 +2,9 @@ package com.benda.calculadoraprecocerveja.dao;
 
 import com.benda.calculadoraprecocerveja.model.Cerveja;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CervejaDAO {
@@ -14,6 +16,7 @@ public class CervejaDAO {
     }
 
     public List<Cerveja> listarTodasCervejas() {
-        return new ArrayList<>(cervejas);
+        Collections.sort(cervejas);
+        return cervejas;
     }
 }
