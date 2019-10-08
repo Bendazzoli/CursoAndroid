@@ -17,17 +17,21 @@ public class AlunoDAO {
     }
 
     public void editar(Aluno aluno){
-        Aluno alunoEditado = null;
-        for (Aluno a : alunos) {
-            if(a.getId() == aluno.getId()){
-                alunoEditado = a;
-            }
-        }
+        Aluno alunoEditado = findAlunoById(aluno);
 
         if(alunoEditado != null){
             int posicaoDoAluno = alunos.indexOf(alunoEditado);
             alunos.set(posicaoDoAluno, aluno);
         }
+    }
+
+    private Aluno findAlunoById(Aluno aluno) {
+        for (Aluno a : alunos) {
+            if(a.getId() == aluno.getId()){
+                return a;
+            }
+        }
+        return null;
     }
 
     public List<Aluno> getTodosAlunos() {

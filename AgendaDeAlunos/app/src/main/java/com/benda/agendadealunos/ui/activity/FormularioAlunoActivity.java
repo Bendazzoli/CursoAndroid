@@ -12,32 +12,43 @@ import com.benda.agendadealunos.R;
 import com.benda.agendadealunos.dao.AlunoDAO;
 import com.benda.agendadealunos.model.Aluno;
 
+import static com.benda.agendadealunos.ui.activity.ConstantesActivities.CHAVE_ALUNO;
+
 public class FormularioAlunoActivity extends AppCompatActivity {
 
     private EditText campoNome;
     private EditText campoTelefone;
     private EditText campoEmail;
     private AlunoDAO dao = new AlunoDAO();
-    private static final String TITULO_APPBAR = "Novo aluno";
+    private static final String TITULO_APPBAR_NOVO_ALUNO = "Novo aluno";
+    private static final String TITULO_APPBAR_EDITA_ALUNO = "Edita aluno";
     private Aluno aluno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_aluno);
-        setTitle(TITULO_APPBAR);
         inicializacaoCampos();
         configuraBotaoSalvar();
+        carregarAluno();
+    }
 
+    private void carregarAluno() {
         Intent dados = getIntent();
-        if(dados.hasExtra("Aluno")){
-            aluno = (Aluno) dados.getSerializableExtra("Aluno");
-            campoNome.setText(aluno.getNome());
-            campoTelefone.setText(aluno.getTelefone());
-            campoEmail.setText(aluno.getEmail());
+        if(dados.hasExtra(CHAVE_ALUNO)){
+            setTitle(TITULO_APPBAR_EDITA_ALUNO);
+            aluno = (Aluno) dados.getSerializableExtra(CHAVE_ALUNO);
+            preencherCampos();
         } else {
+            setTitle(TITULO_APPBAR_NOVO_ALUNO);
             aluno = new Aluno();
         }
+    }
+
+    private void preencherCampos() {
+        campoNome.setText(aluno.getNome());
+        campoTelefone.setText(aluno.getTelefone());
+        campoEmail.setText(aluno.getEmail());
     }
 
     private void configuraBotaoSalvar() {
@@ -45,17 +56,20 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                preencherAluno();
-
-                if(aluno.temIdValido()){
-                    dao.editar(aluno);
-                }else{
-                    dao.salvar(aluno);
-                }
-                finish();
+                finalizarFormulario();
             }
         });
+    }
+
+    private void finalizarFormulario() {
+        preencherAluno();
+
+        if(aluno.temIdValido()){
+            dao.editar(aluno);
+        }else{
+            dao.salvar(aluno);
+        }
+        finish();
     }
 
     private void inicializacaoCampos() {
