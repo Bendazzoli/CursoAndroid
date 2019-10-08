@@ -12,8 +12,6 @@ import com.benda.agendadealunos.R;
 import com.benda.agendadealunos.dao.AlunoDAO;
 import com.benda.agendadealunos.model.Aluno;
 
-import java.io.Serializable;
-
 public class FormularioAlunoActivity extends AppCompatActivity {
 
     private EditText campoNome;
@@ -21,6 +19,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private EditText campoEmail;
     private AlunoDAO dao = new AlunoDAO();
     private static final String TITULO_APPBAR = "Novo aluno";
+    private Aluno aluno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +30,14 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         configuraBotaoSalvar();
 
         Intent dados = getIntent();
-        Aluno aluno = (Aluno) dados.getSerializableExtra("Aluno");
-        campoNome.setText(aluno.getNome());
-        campoTelefone.setText(aluno.getTelefone());
-        campoEmail.setText(aluno.getEmail());
+        if(dados.hasExtra("Aluno")){
+            aluno = (Aluno) dados.getSerializableExtra("Aluno");
+            campoNome.setText(aluno.getNome());
+            campoTelefone.setText(aluno.getTelefone());
+            campoEmail.setText(aluno.getEmail());
+        } else {
+            aluno = new Aluno();
+        }
     }
 
     private void configuraBotaoSalvar() {
@@ -42,7 +45,15 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                salvarAluno(criarAluno());
+
+                preencherAluno();
+
+                if(aluno.temIdValido()){
+                    dao.editar(aluno);
+                }else{
+                    dao.salvar(aluno);
+                }
+                finish();
             }
         });
     }
@@ -53,16 +64,13 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         campoEmail = findViewById(R.id.activity_formulario_aluno_email);
     }
 
-    private void salvarAluno(Aluno novoAluno) {
-        dao.salvar(novoAluno);
-        finish();
-    }
-
-    private Aluno criarAluno() {
+    private void preencherAluno() {
         String nome = campoNome.getText().toString();
         String telefone = campoTelefone.getText().toString();
         String email = campoEmail.getText().toString();
 
-        return new Aluno(nome, telefone, email);
+        aluno.setNome(nome);
+        aluno.setTelefone(telefone);
+        aluno.setEmail(email);
     }
 }
