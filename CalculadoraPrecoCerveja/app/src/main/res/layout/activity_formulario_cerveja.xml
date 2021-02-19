@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,8 +11,8 @@
         android:layout_height="64dp"
         android:layout_margin="8dp"
         android:hint="Nome cerveja"
-        android:maxLength="30"
-        android:inputType="textCapWords" />
+        android:inputType="textCapWords"
+        android:maxLength="30" />
 
     <EditText
         android:id="@+id/activity_formulario_cerveja_litragem"
@@ -20,8 +20,8 @@
         android:layout_height="64dp"
         android:layout_margin="8dp"
         android:hint="Quantidade em ml"
-        android:maxLength="5"
-        android:inputType="number" />
+        android:inputType="number"
+        android:maxLength="5" />
 
     <EditText
         android:id="@+id/activity_formulario_cerveja_preco"
@@ -29,14 +29,25 @@
         android:layout_height="64dp"
         android:layout_margin="8dp"
         android:hint="R$ preço"
-        android:maxLength="11"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:maxLength="11" />
 
-    <Button
-        android:id="@+id/activity_formulario_cerveja_botao_salvar"
+    <LinearLayout
+        android:id="@+id/BottomLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_margin="8dp"
-        android:text="Salvar" />
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/activity_formulario_cerveja_botao_salvar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="fill_vertical|end"
+            android:layout_margin="8dp"
+            android:background="#E5ED2D"
+            android:text="Salvar" />
+
+    </LinearLayout>
 
 </LinearLayout>
