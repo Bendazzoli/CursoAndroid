@@ -30,19 +30,14 @@ public class FormularioCervejaActivity extends AppCompatActivity {
         final EditText campoLitragem = findViewById(R.id.activity_formulario_cerveja_litragem);
         final EditText campoPreco = findViewById(R.id.activity_formulario_cerveja_preco);
 
-        Button botaoSalvar = findViewById(R.id.activity_formulario_cerveja_botao_salvar);
-
-        botaoSalvar.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.activity_formulario_cerveja_botao_salvar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nome = campoNome.getText().toString();
-                Integer litragem = Integer.parseInt(campoLitragem.getText().toString());
-
-                String formattedValue = MonetaryHelper.cleanFormat(campoPreco.getText().toString());
-                Float preco =  Float.parseFloat(formattedValue);
-
-                Cerveja novaCerveja = new Cerveja(nome, litragem, preco);
-                dao.salvar(novaCerveja);
+                dao.salvar(new Cerveja(
+                            campoNome.getText().toString(),
+                            Integer.parseInt(campoLitragem.getText().toString()),
+                            Float.parseFloat(MonetaryHelper.cleanFormat(campoPreco.getText().toString()))
+                        ));
 
                 finish();
             }
