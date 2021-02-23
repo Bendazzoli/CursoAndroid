@@ -2,9 +2,12 @@ package com.benda.calculadoraprecocerveja.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,7 +45,23 @@ public class ListaCervejasActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         CervejaDAO dao = new CervejaDAO();
-        binding.activityListaDeCervejasListview.setAdapter(new ArrayAdapter<Cerveja>(this, R.layout.lista_cerveja_custom_cell, dao.listarTodasCervejas()));
+        ListView listaDeCervejasListView = binding.activityListaDeCervejasListview;
+        final List<Cerveja> cervejas = dao.listarTodasCervejas();
+
+        listaDeCervejasListView.setAdapter(new ArrayAdapter<Cerveja>(this, R.layout.lista_cerveja_custom_cell, dao.listarTodasCervejas()));
+
+        listaDeCervejasListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long id) {
+                Cerveja cervejaEscolhida = cervejas.get(posicao);
+
+                Intent editarCerveja = new Intent(ListaCervejasActivity.this, FormularioCervejaActivity.class);
+                editarCerveja.putExtra("cervejaParam", cervejaEscolhida);
+
+                startActivity(editarCerveja);
+            }
+        });
     }
 }
