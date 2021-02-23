@@ -45,7 +45,7 @@
             android:layout_height="56dp"
             android:layout_gravity="fill_vertical|end"
             android:layout_margin="8dp"
-            android:background="#E5ED2D"
+            android:background="#FFBA27"
             android:text="Salvar" />
 
     </LinearLayout>

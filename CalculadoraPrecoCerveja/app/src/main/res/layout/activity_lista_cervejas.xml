@@ -17,7 +17,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="#E5ED2D"
+        app:backgroundTint="#FFBA27"
         android:src="@drawable/ic_action_nova_cerveja" />
 
 
