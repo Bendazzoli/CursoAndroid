@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_beer"
+        android:icon="@mipmap/ic_launcher_calculadora_cerveja"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_beer_round"
+        android:roundIcon="@mipmap/ic_launcher_calculadora_cerveja_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.FormularioCervejaActivity"></activity>
