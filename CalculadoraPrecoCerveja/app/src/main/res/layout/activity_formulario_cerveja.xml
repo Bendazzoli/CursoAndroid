@@ -55,7 +55,7 @@
             android:background="#FFBA27"
             android:fontFamily="sans-serif-condensed"
             android:textSize="18dp"
-            android:text="Salvar" />
+            android:text="@string/botao_salvar_cerveja" />
 
     </LinearLayout>
 

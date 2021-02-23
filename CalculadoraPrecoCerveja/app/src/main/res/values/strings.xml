@@ -3,4 +3,5 @@
     <string name="hint_nome_cerveja">Nome cerveja</string>
     <string name="hint_litragem_cerveja">Quantidade em ml</string>
     <string name="hint_preco_cerveja">R$ preço</string>
+    <string name="botao_salvar_cerveja">Salvar</string>
 </resources>
