@@ -12,6 +12,8 @@
         android:layout_margin="8dp"
         android:hint="Nome cerveja"
         android:inputType="textCapWords"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="18dp"
         android:maxLength="30" />
 
     <EditText
@@ -21,6 +23,8 @@
         android:layout_margin="8dp"
         android:hint="Quantidade em ml"
         android:inputType="number"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="18dp"
         android:maxLength="5" />
 
     <EditText
@@ -30,6 +34,8 @@
         android:layout_margin="8dp"
         android:hint="R$ preço"
         android:inputType="numberDecimal"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="18dp"
         android:maxLength="11" />
 
     <LinearLayout
@@ -37,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom|center_horizontal"
+        android:fontFamily="sans-serif-condensed"
         android:orientation="vertical">
 
         <Button
@@ -46,6 +53,8 @@
             android:layout_gravity="fill_vertical|end"
             android:layout_margin="8dp"
             android:background="#FFBA27"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="18dp"
             android:text="Salvar" />
 
     </LinearLayout>

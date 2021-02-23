@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.benda.calculadoraprecocerveja.R;
 import com.benda.calculadoraprecocerveja.dao.CervejaDAO;
+import com.benda.calculadoraprecocerveja.databinding.ActivityListaCervejasBinding;
 import com.benda.calculadoraprecocerveja.model.Cerveja;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,11 +20,14 @@ import java.util.List;
 
 public class ListaCervejasActivity extends AppCompatActivity {
 
+    ActivityListaCervejasBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Lista de Cervejas");
-        setContentView(R.layout.activity_lista_cervejas);
+        binding = ActivityListaCervejasBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         FloatingActionButton botaoNovaCerveja = findViewById(R.id.activity_lista_cervejas_fab_nova_cerveja);
 
@@ -39,7 +43,6 @@ public class ListaCervejasActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         CervejaDAO dao = new CervejaDAO();
-        ListView listaDeCervejas = findViewById(R.id.activity_lista_de_cervejas_listview);
-        listaDeCervejas.setAdapter(new ArrayAdapter<Cerveja>(this, android.R.layout.simple_list_item_1, dao.listarTodasCervejas()));
+        binding.activityListaDeCervejasListview.setAdapter(new ArrayAdapter<Cerveja>(this, R.layout.lista_cerveja_custom_cell, dao.listarTodasCervejas()));
     }
 }
