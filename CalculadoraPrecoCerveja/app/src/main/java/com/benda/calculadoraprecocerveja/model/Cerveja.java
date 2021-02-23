@@ -30,6 +30,6 @@ public class Cerveja implements Comparable<Cerveja> {
 
     @Override
     public int compareTo(Cerveja outra) {
-        return this.nome.compareTo(outra.nome);
+        return this.calculaPrecoLitro().compareTo(outra.calculaPrecoLitro());
     }
 }
