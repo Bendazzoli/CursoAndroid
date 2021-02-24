@@ -3,11 +3,14 @@ package com.benda.calculadoraprecocerveja.ui.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,6 +38,22 @@ public class ListaCervejasActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add("Remover");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Cerveja cervejaEscolhida = cervejaAdapter.getItem(menuInfo.position);
+        dao.remover(cervejaEscolhida);
+        onResume();
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         atualizaCervejas();
@@ -57,13 +76,13 @@ public class ListaCervejasActivity extends AppCompatActivity {
     }
 
     private void configuraListaCerveja(){
-        ListView listaDeCervejasListView = binding.activityListaDeCervejasListview;
+        ListView listaDeCervejas = binding.activityListaDeCervejasListview;
 
         cervejaAdapter = new ArrayAdapter<>(ListaCervejasActivity.this, R.layout.lista_cerveja_custom_cell);
-        listaDeCervejasListView.setAdapter(cervejaAdapter);
+        listaDeCervejas.setAdapter(cervejaAdapter);
 
-        configuraListenerClickPorItem(listaDeCervejasListView);
-        configuraListenerClickLongoPorItem(listaDeCervejasListView);
+        configuraListenerClickPorItem(listaDeCervejas);
+        registerForContextMenu(listaDeCervejas);
     }
 
     private void configuraListenerClickPorItem(ListView listaDeCervejasListView) {
@@ -74,18 +93,6 @@ public class ListaCervejasActivity extends AppCompatActivity {
 
                 editarCerveja.putExtra("cervejaParam", (Cerveja) adapterView.getItemAtPosition(posicao));
                 startActivity(editarCerveja);
-            }
-        });
-    }
-
-    private void configuraListenerClickLongoPorItem(ListView listaDeCervejasListView) {
-        listaDeCervejasListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int posicao, long id) {
-                Cerveja cervejaEscolhida = (Cerveja) adapterView.getItemAtPosition(posicao);
-                removeCerveja(cervejaEscolhida);
-                return true;
             }
         });
     }
