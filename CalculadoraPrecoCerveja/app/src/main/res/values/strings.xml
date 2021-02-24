@@ -4,4 +4,6 @@
     <string name="hint_litragem_cerveja">Quantidade em ml</string>
     <string name="hint_preco_cerveja">R$ preço</string>
     <string name="botao_salvar_cerveja">Salvar</string>
+    <string name="menu_item_remover">Remover</string>
+    <string name="menu_item_atualizar">Atualizar</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.benda.calculadoraprecocerveja.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import com.benda.calculadoraprecocerveja.dao.CervejaDAO;
 import com.benda.calculadoraprecocerveja.databinding.ActivityListaCervejasBinding;
 import com.benda.calculadoraprecocerveja.model.Cerveja;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Objects;
 
 public class ListaCervejasActivity extends AppCompatActivity {
 
@@ -40,15 +43,25 @@ public class ListaCervejasActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add("Remover");
+        getMenuInflater().inflate(R.menu.activity_lista_cervejas_menu, menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         Cerveja cervejaEscolhida = cervejaAdapter.getItem(menuInfo.position);
-        dao.remover(cervejaEscolhida);
+        switch (item.getItemId()){
+            case R.id.activity_lista_cervejas_menu_remover_item:
+                dao.remover(cervejaEscolhida);
+                break;
+            case R.id.activity_lista_cervejas_menu_atualizar_item:
+                Intent editarCerveja = new Intent(ListaCervejasActivity.this, FormularioCervejaActivity.class);
+                editarCerveja.putExtra("cervejaParam", (Cerveja) cervejaEscolhida);
+                startActivity(editarCerveja);
+                break;
+        }
         onResume();
         return super.onContextItemSelected(item);
     }
@@ -80,21 +93,7 @@ public class ListaCervejasActivity extends AppCompatActivity {
 
         cervejaAdapter = new ArrayAdapter<>(ListaCervejasActivity.this, R.layout.lista_cerveja_custom_cell);
         listaDeCervejas.setAdapter(cervejaAdapter);
-
-        configuraListenerClickPorItem(listaDeCervejas);
         registerForContextMenu(listaDeCervejas);
-    }
-
-    private void configuraListenerClickPorItem(ListView listaDeCervejasListView) {
-        listaDeCervejasListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long id) {
-                Intent editarCerveja = new Intent(ListaCervejasActivity.this, FormularioCervejaActivity.class);
-
-                editarCerveja.putExtra("cervejaParam", (Cerveja) adapterView.getItemAtPosition(posicao));
-                startActivity(editarCerveja);
-            }
-        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
