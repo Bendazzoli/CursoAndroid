@@ -33,8 +33,8 @@ public class Cerveja implements Comparable<Cerveja>, Serializable {
     }
 
     @Override
-    public int compareTo(Cerveja outra) {
-        return this.calculaPrecoLitro().compareTo(outra.calculaPrecoLitro());
+    public int compareTo(Cerveja cerveja) {
+        return this.calculaPrecoLitro().compareTo(cerveja.calculaPrecoLitro());
     }
 
     public void setNome(String nome){

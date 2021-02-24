@@ -28,14 +28,17 @@ public class CervejaDAO {
         for (Cerveja c: cervejas) {
             if(Objects.equals(c.getId(), cerveja.getId())){
                 cervejas.set(cervejas.indexOf(c), cerveja);
+                break;
             }
         }
     }
 
-    public void remover(final Cerveja cerveja){
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void remover(Cerveja cerveja){
         for (Cerveja c: cervejas) {
             if(Objects.equals(c.getId(), cerveja.getId())){
-                cervejas.remove(cervejas.indexOf(c));
+                cervejas.remove(cerveja);
+                break;
             }
         }
     }
