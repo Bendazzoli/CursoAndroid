@@ -17,12 +17,11 @@ import com.benda.calculadoraprecocerveja.databinding.ActivityListaCervejasBindin
 import com.benda.calculadoraprecocerveja.model.Cerveja;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
 public class ListaCervejasActivity extends AppCompatActivity {
 
-    ActivityListaCervejasBinding binding;
+    private ActivityListaCervejasBinding binding;
     private ArrayAdapter<Cerveja> cervejaAdapter;
+    private CervejaDAO dao = new CervejaDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,18 @@ public class ListaCervejasActivity extends AppCompatActivity {
         binding = ActivityListaCervejasBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        configuraFABAddCerveja();
+        configuraListaCerveja();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cervejaAdapter.clear();
+        cervejaAdapter.addAll(dao.listarTodasCervejas());
+    }
+
+    private void configuraFABAddCerveja(){
         FloatingActionButton botaoNovaCerveja = findViewById(R.id.activity_lista_cervejas_fab_nova_cerveja);
 
         botaoNovaCerveja.setOnClickListener(new View.OnClickListener() {
@@ -41,14 +52,10 @@ public class ListaCervejasActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        final CervejaDAO dao = new CervejaDAO();
+    private void configuraListaCerveja(){
         ListView listaDeCervejasListView = binding.activityListaDeCervejasListview;
 
-        cervejaAdapter = new ArrayAdapter<>(ListaCervejasActivity.this, R.layout.lista_cerveja_custom_cell, dao.listarTodasCervejas());
+        cervejaAdapter = new ArrayAdapter<>(ListaCervejasActivity.this, R.layout.lista_cerveja_custom_cell);
         listaDeCervejasListView.setAdapter(cervejaAdapter);
 
         listaDeCervejasListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
