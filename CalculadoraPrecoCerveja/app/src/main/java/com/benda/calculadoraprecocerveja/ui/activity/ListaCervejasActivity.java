@@ -37,6 +37,10 @@ public class ListaCervejasActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        atualizaCervejas();
+    }
+
+    private void atualizaCervejas(){
         cervejaAdapter.clear();
         cervejaAdapter.addAll(dao.listarTodasCervejas());
     }
@@ -58,6 +62,11 @@ public class ListaCervejasActivity extends AppCompatActivity {
         cervejaAdapter = new ArrayAdapter<>(ListaCervejasActivity.this, R.layout.lista_cerveja_custom_cell);
         listaDeCervejasListView.setAdapter(cervejaAdapter);
 
+        configuraListenerClickPorItem(listaDeCervejasListView);
+        configuraListenerClickLongoPorItem(listaDeCervejasListView);
+    }
+
+    private void configuraListenerClickPorItem(ListView listaDeCervejasListView) {
         listaDeCervejasListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long id) {
@@ -67,16 +76,23 @@ public class ListaCervejasActivity extends AppCompatActivity {
                 startActivity(editarCerveja);
             }
         });
+    }
 
+    private void configuraListenerClickLongoPorItem(ListView listaDeCervejasListView) {
         listaDeCervejasListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int posicao, long id) {
                 Cerveja cervejaEscolhida = (Cerveja) adapterView.getItemAtPosition(posicao);
-                dao.remover(cervejaEscolhida);
-                cervejaAdapter.remove(cervejaEscolhida);
+                removeCerveja(cervejaEscolhida);
                 return true;
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void removeCerveja(Cerveja cerveja){
+        dao.remover(cerveja);
+        cervejaAdapter.remove(cerveja);
     }
 }
