@@ -52,10 +52,10 @@ public class ListaCervejasActivity extends AppCompatActivity {
         Cerveja cervejaEscolhida = cervejaAdapter.getItem(menuInfo.position);
         switch (item.getItemId()){
             case R.id.activity_lista_cervejas_menu_remover_item:
-                removeCerveja(cervejaEscolhida);
+                removerCerveja(cervejaEscolhida);
                 break;
             case R.id.activity_lista_cervejas_menu_atualizar_item:
-                editaCerveja(cervejaEscolhida);
+                editarCerveja(cervejaEscolhida);
                 break;
         }
         onResume();
@@ -93,12 +93,12 @@ public class ListaCervejasActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void removeCerveja(Cerveja cerveja){
+    private void removerCerveja(Cerveja cerveja){
         dao.remover(cerveja);
         cervejaAdapter.remove(cerveja);
     }
 
-    private void editaCerveja(Cerveja cerveja){
+    private void editarCerveja(Cerveja cerveja){
         Intent editarCerveja = new Intent(ListaCervejasActivity.this, FormularioCervejaActivity.class);
         editarCerveja.putExtra("cervejaParam", (Cerveja) cerveja);
         startActivity(editarCerveja);

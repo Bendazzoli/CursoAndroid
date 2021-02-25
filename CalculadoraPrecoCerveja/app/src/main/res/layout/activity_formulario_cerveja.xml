@@ -38,25 +38,4 @@
         android:textSize="18dp"
         android:maxLength="11" />
 
-    <LinearLayout
-        android:id="@+id/BottomLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom|center_horizontal"
-        android:fontFamily="sans-serif-condensed"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/activity_formulario_cerveja_botao_salvar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_gravity="fill_vertical|end"
-            android:layout_margin="8dp"
-            android:background="#FFBA27"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="18dp"
-            android:text="@string/botao_salvar_cerveja" />
-
-    </LinearLayout>
-
 </LinearLayout>
