@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_cerveja_nome_litragem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="20sp"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:textColor="#000000"
+        tools:text="Brahma 350ml"
+        tools:ignore="RtlSymmetry">
+    </TextView>
+
+    <TextView
+        android:id="@+id/item_cerveja_preco_por_litro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="16sp"
+        android:paddingStart="16dp"
+        tools:text="R$6,75/litro"
+        tools:ignore="RtlSymmetry">
+    </TextView>
+
+</LinearLayout>

@@ -8,7 +8,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -17,22 +16,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.benda.calculadoraprecocerveja.R;
 import com.benda.calculadoraprecocerveja.dao.CervejaDAO;
-import com.benda.calculadoraprecocerveja.databinding.ActivityListaCervejasBinding;
 import com.benda.calculadoraprecocerveja.model.Cerveja;
+import com.benda.calculadoraprecocerveja.ui.adapter.ListaCervejaAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ListaCervejasActivity extends AppCompatActivity {
-
-    private ActivityListaCervejasBinding binding;
-    private ArrayAdapter<Cerveja> cervejaAdapter;
     private CervejaDAO dao = new CervejaDAO();
+    private ListaCervejaAdapter listaCervejaAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Lista de Cervejas");
-        binding = ActivityListaCervejasBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_lista_cervejas);
 
         configuraFABAddCerveja();
         configuraListaCerveja();
@@ -49,7 +45,7 @@ public class ListaCervejasActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Cerveja cervejaEscolhida = cervejaAdapter.getItem(menuInfo.position);
+        Cerveja cervejaEscolhida = listaCervejaAdapter.getItem(menuInfo.position);
         switch (item.getItemId()){
             case R.id.activity_lista_cervejas_menu_remover_item:
                 removerCerveja(cervejaEscolhida);
@@ -69,8 +65,8 @@ public class ListaCervejasActivity extends AppCompatActivity {
     }
 
     private void atualizaCervejas(){
-        cervejaAdapter.clear();
-        cervejaAdapter.addAll(dao.listarTodasCervejas());
+        listaCervejaAdapter.clear();
+        listaCervejaAdapter.addAll(dao.listarTodasCervejas());
     }
 
     private void configuraFABAddCerveja(){
@@ -85,17 +81,16 @@ public class ListaCervejasActivity extends AppCompatActivity {
     }
 
     private void configuraListaCerveja(){
-        ListView listaDeCervejas = binding.activityListaDeCervejasListview;
-
-        cervejaAdapter = new ArrayAdapter<>(ListaCervejasActivity.this, R.layout.lista_cerveja_custom_cell);
-        listaDeCervejas.setAdapter(cervejaAdapter);
+        ListView listaDeCervejas = findViewById(R.id.activity_lista_de_cervejas_listview);
+        listaCervejaAdapter = new ListaCervejaAdapter(ListaCervejasActivity.this);
+        listaDeCervejas.setAdapter(listaCervejaAdapter);
         registerForContextMenu(listaDeCervejas);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void removerCerveja(Cerveja cerveja){
         dao.remover(cerveja);
-        cervejaAdapter.remove(cerveja);
+        listaCervejaAdapter.remove(cerveja);
     }
 
     private void editarCerveja(Cerveja cerveja){
