@@ -27,7 +27,7 @@ public class Cerveja implements Comparable<Cerveja>, Serializable {
     }
 
     public String calculaPrecoLitro() {
-        DecimalFormat df = new DecimalFormat("###.##");
+        DecimalFormat df = new DecimalFormat("0.00");
         df.setRoundingMode(RoundingMode.UP);
         return df.format((this.preco * 1000) / this.litragem);
     }
