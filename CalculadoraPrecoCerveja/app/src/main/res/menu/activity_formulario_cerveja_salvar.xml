@@ -5,5 +5,6 @@
     <item
         android:id="@+id/activity_formulario_cerveja_menu_salvar"
         android:title="@string/menu_item_salvar"
+        android:icon="@drawable/ic_action_salvar_cerveja"
         app:showAsAction="always"/>
 </menu>
