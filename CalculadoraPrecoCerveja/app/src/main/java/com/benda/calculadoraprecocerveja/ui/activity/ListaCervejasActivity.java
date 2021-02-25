@@ -65,8 +65,7 @@ public class ListaCervejasActivity extends AppCompatActivity {
     }
 
     private void atualizaCervejas(){
-        listaCervejaAdapter.clear();
-        listaCervejaAdapter.addAll(dao.listarTodasCervejas());
+        listaCervejaAdapter.atualiza(dao.listarTodasCervejas());
     }
 
     private void configuraFABAddCerveja(){

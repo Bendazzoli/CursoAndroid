@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ListaCervejaAdapter extends BaseAdapter {
     private final List<Cerveja> cervejas = new ArrayList<>();
-    private Context context;
+    private final Context context;
 
     public ListaCervejaAdapter(Context context){
         this.context = context;
@@ -40,29 +40,32 @@ public class ListaCervejaAdapter extends BaseAdapter {
     @SuppressLint("SetTextI18n")
     @Override
     public View getView(int posicao, View view, ViewGroup viewGroup) {
-        @SuppressLint("ViewHolder") View viewCriada = LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_cerveja_custom_cell, viewGroup, false);
-
-        Cerveja cervejaDevolvida = cervejas.get(posicao);
-
-        TextView titulo = viewCriada.findViewById(R.id.item_cerveja_nome_litragem);
-        titulo.setText(cervejaDevolvida.getNome() + " " + cervejaDevolvida.getLitragem() + "ml");
-
-        TextView subTitulo = viewCriada.findViewById(R.id.item_cerveja_preco_por_litro);
-        subTitulo.setText("R$" + cervejaDevolvida.calculaPrecoLitro() + " / litro");
-        return viewCriada;
-    }
-
-    public void clear() {
-        cervejas.clear();
-    }
-
-    public void addAll(List<Cerveja> cervejas) {
-        this.cervejas.addAll(cervejas);
+        return vincula(criaView(viewGroup), cervejas.get(posicao));
     }
 
     public void remove(Cerveja cerveja) {
         this.cervejas.remove(cerveja);
+        notifyDataSetChanged();
     }
+
+    public void atualiza(List<Cerveja> cervejas){
+        this.cervejas.clear();
+        this.cervejas.addAll(cervejas);
+        notifyDataSetChanged();
+    }
+
+    private View criaView(ViewGroup viewGroup) {
+        return LayoutInflater
+                .from(context)
+                .inflate(R.layout.item_cerveja_custom_cell, viewGroup, false);
+    }
+    private View vincula(View view, Cerveja cerveja) {
+        TextView titulo = view.findViewById(R.id.item_cerveja_nome_litragem);
+        titulo.setText(cerveja.getNome() + " " + cerveja.getLitragem() + "ml");
+
+        TextView subTitulo = view.findViewById(R.id.item_cerveja_preco_por_litro);
+        subTitulo.setText("R$" + cerveja.calculaPrecoLitro() + " / litro");
+        return view;
+    }
+
 }
