@@ -21,8 +21,6 @@ import com.benda.calculadoraprecocerveja.databinding.ActivityListaCervejasBindin
 import com.benda.calculadoraprecocerveja.model.Cerveja;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Objects;
-
 public class ListaCervejasActivity extends AppCompatActivity {
 
     private ActivityListaCervejasBinding binding;
@@ -54,12 +52,10 @@ public class ListaCervejasActivity extends AppCompatActivity {
         Cerveja cervejaEscolhida = cervejaAdapter.getItem(menuInfo.position);
         switch (item.getItemId()){
             case R.id.activity_lista_cervejas_menu_remover_item:
-                dao.remover(cervejaEscolhida);
+                removeCerveja(cervejaEscolhida);
                 break;
             case R.id.activity_lista_cervejas_menu_atualizar_item:
-                Intent editarCerveja = new Intent(ListaCervejasActivity.this, FormularioCervejaActivity.class);
-                editarCerveja.putExtra("cervejaParam", (Cerveja) cervejaEscolhida);
-                startActivity(editarCerveja);
+                editaCerveja(cervejaEscolhida);
                 break;
         }
         onResume();
@@ -100,5 +96,11 @@ public class ListaCervejasActivity extends AppCompatActivity {
     private void removeCerveja(Cerveja cerveja){
         dao.remover(cerveja);
         cervejaAdapter.remove(cerveja);
+    }
+
+    private void editaCerveja(Cerveja cerveja){
+        Intent editarCerveja = new Intent(ListaCervejasActivity.this, FormularioCervejaActivity.class);
+        editarCerveja.putExtra("cervejaParam", (Cerveja) cerveja);
+        startActivity(editarCerveja);
     }
 }
