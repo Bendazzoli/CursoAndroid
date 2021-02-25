@@ -1,6 +1,9 @@
 package com.benda.calculadoraprecocerveja.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,12 +46,13 @@ public class ListaCervejasActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Cerveja cervejaEscolhida = listaCervejaAdapter.getItem(menuInfo.position);
+    public boolean onContextItemSelected(@NonNull final MenuItem item) {
+        final AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final Cerveja cervejaEscolhida = listaCervejaAdapter.getItem(menuInfo.position);
+
         switch (item.getItemId()){
             case R.id.activity_lista_cervejas_menu_remover_item:
-                removerCerveja(cervejaEscolhida);
+                confirmaRemocaoCerveja(cervejaEscolhida);
                 break;
             case R.id.activity_lista_cervejas_menu_atualizar_item:
                 editarCerveja(cervejaEscolhida);
@@ -84,6 +88,21 @@ public class ListaCervejasActivity extends AppCompatActivity {
         listaCervejaAdapter = new ListaCervejaAdapter(ListaCervejasActivity.this);
         listaDeCervejas.setAdapter(listaCervejaAdapter);
         registerForContextMenu(listaDeCervejas);
+    }
+
+    private void confirmaRemocaoCerveja(final Cerveja cervejaEscolhida) {
+        new AlertDialog
+                .Builder(ListaCervejasActivity.this)
+                .setMessage("Deseja realmente remover a cerveja selecionada?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        removerCerveja(cervejaEscolhida);
+                    }
+                })
+                .setNegativeButton("Não", null)
+                .show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
