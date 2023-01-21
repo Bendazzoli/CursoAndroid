@@ -45,9 +45,7 @@ public class CervejaDAO {
     }
 
     public List<Cerveja> listarTodasCervejas() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            cervejas.sort(Comparator.comparing(Cerveja::calculaPrecoLitro));
-        }
+        Collections.sort(cervejas);
         return cervejas;
     }
 }

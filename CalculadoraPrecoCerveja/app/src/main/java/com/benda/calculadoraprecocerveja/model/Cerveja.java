@@ -29,12 +29,21 @@ public class Cerveja implements Comparable<Cerveja>, Serializable {
     public String calculaPrecoLitro() {
         DecimalFormat df = new DecimalFormat("0.00");
         df.setRoundingMode(RoundingMode.UP);
-        return df.format((this.preco * 1000) / this.litragem);
+        return df.format(precoLitroCerveja());
+    }
+
+    private Float precoLitroCerveja() {
+        return (this.preco * 1000) / this.litragem;
     }
 
     @Override
-    public int compareTo(Cerveja cerveja) {
-        return this.calculaPrecoLitro().compareTo(cerveja.calculaPrecoLitro());
+    public int compareTo(Cerveja outraCerveja) {
+        if (this.precoLitroCerveja() > outraCerveja.precoLitroCerveja()) {
+            return 1;
+        } if (this.precoLitroCerveja() < outraCerveja.precoLitroCerveja()) {
+            return -1;
+        }
+        return 0;
     }
 
     public void setNome(String nome){
