@@ -9,12 +9,13 @@ import com.benda.calculadoraprecocerveja.model.Cerveja;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 public class CervejaDAO {
 
-    private static final List<Cerveja> cervejas = new ArrayList<>();
+    private static List<Cerveja> cervejas = new ArrayList<>();
     private static int incrementadorId = 1;
 
     public void salvar(Cerveja cerveja) {
@@ -44,7 +45,9 @@ public class CervejaDAO {
     }
 
     public List<Cerveja> listarTodasCervejas() {
-        Collections.sort(cervejas);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            cervejas.sort(Comparator.comparing(Cerveja::calculaPrecoLitro));
+        }
         return cervejas;
     }
 }
