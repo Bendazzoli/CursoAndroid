@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.benda.calculadoraprecocerveja.R;
 import com.benda.calculadoraprecocerveja.dao.CervejaDAO;
@@ -66,13 +67,25 @@ public class FormularioCervejaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.activity_formulario_cerveja_menu_salvar){
-            if (Objects.nonNull(cervejaParam)) {
-                editarCerveja();
+            if (campoNome.getText().toString().isEmpty()) {
+                Toast.makeText(this, "O nome da cerveja deve ser informado!", Toast.LENGTH_LONG).show();
+            } else if (campoLitragem.getText().toString().isEmpty()) {
+                Toast.makeText(this, "O volume da cerveja deve ser informado!", Toast.LENGTH_LONG).show();
+            }else if (Integer.parseInt(campoLitragem.getText().toString()) == 0) {
+                Toast.makeText(this, "O volume da cerveja não pode ser 0!", Toast.LENGTH_LONG).show();
+            } else if (campoPreco.getText().toString().isEmpty()) {
+                Toast.makeText(this, "O preço da cerveja deve ser informado!", Toast.LENGTH_LONG).show();
+            } else if (campoPreco.getText().toString().equals("R$ 0,00")) {
+                Toast.makeText(this, "O preço da cerveja não pode ser R$0.00!", Toast.LENGTH_LONG).show();
             } else {
-                salvarCerveja();
+                if (Objects.nonNull(cervejaParam)) {
+                    editarCerveja();
+                } else {
+                    salvarCerveja();
+                }
+                finish();
             }
         }
-        finish();
         return super.onOptionsItemSelected(item);
     }
 
